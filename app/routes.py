@@ -109,3 +109,17 @@ def edit_text(text_id):
     form.body.data = text_to_edit.body
     form.image_url.data = text_to_edit.image_url
     return render_template('edit_text.html', form=form, text=text_to_edit)
+
+
+@app.route('/delete/<text_id>')
+@login_required
+def delete_text(text_id):
+    text_to_delete = Text.query.get_or_404(text_id)
+    if text_to_delete.author != current_user:
+        flash("You do not have permission to delete this text", "danger")
+        return redirect(url_for('index'))
+
+    db.session.delete(text_to_delete)
+    db.session.commit()
+    flash(f"{text_to_delete.title} has been deleted", "info")
+    return redirect(url_for('index'))
