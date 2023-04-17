@@ -29,6 +29,10 @@
                                 <h5 class="card-title">{{ text.title }}</h5>
                                 <h6 class="card-subtitle">By: {{ text.author.username }}</h6>
                                 <p class="card-text">{{ text.body }}</p>
+                                {% if text.author == current_user %}
+                                    <a href="{{ url_for('edit_text', text_id=text.id) }}" class="btn btn-success">Edit</a>
+                                    <a href="/" class="btn btn-danger">Delete</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

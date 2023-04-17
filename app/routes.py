@@ -1,6 +1,5 @@
 from app import app, db
 from flask import render_template, redirect, url_for, flash
-# from fake_data import posts
 from app.forms import SignUpForm, LoginForm, TextForm
 from app.models import User, Text
 from flask_login import login_user, logout_user, login_required, current_user
@@ -81,3 +80,32 @@ def add_text():
         flash(f"{new_text.title} has been created!", "success")
         return redirect(url_for('index'))
     return render_template('add_text.html', form=form) 
+
+
+@app.route('/edit/<text_id>', methods=["GET", "POST"])
+@login_required
+def edit_text(text_id):
+    form = TextForm()
+    text_to_edit = Text.query.get_or_404(text_id)
+    # Make sure that the text author is the current user
+    if text_to_edit.author != current_user:
+        flash("You do not have permission to edit this text", "danger")
+        return redirect(url_for('index'))
+
+    # If form submitted, update Text
+    if form.validate_on_submit():
+        # update the text with the form data
+        print('Form validated')
+        text_to_edit.title = form.title.data
+        text_to_edit.body = form.body.data
+        text_to_edit.image_url = form.image_url.data
+        # Commit that to the database
+        db.session.commit()
+        flash(f"{text_to_edit.title} has been edited!", "success")
+        return redirect(url_for('index'))
+
+    # Pre-populate the form with Text To Edit's values
+    form.title.data = text_to_edit.title
+    form.body.data = text_to_edit.body
+    form.image_url.data = text_to_edit.image_url
+    return render_template('edit_text.html', form=form, text=text_to_edit)
