@@ -3,11 +3,12 @@
 {% block title %} Home {% endblock %}
 
 {% block header %}
-    <h1>Welcome to the Kekambas Blog</h1>
-    {% if logged_in %}
-        <h5>Nice to see you again!</h5>
+    <h1>Welcome to the Rapid Remember</h1>
+    <h3>The Last Memorization Tool You'll Need</h3>
+    {% if current_user.is_authenticated %}
+    <h5>Nice to see you again, {{ current_user.username }}!</h5>
     {% else %}
-        <h5>Please Sign Up or Log In to Create New Posts</h5>
+        <h5>Please Sign Up or Log In to Access Texts</h5>
     {% endif %}
 {% endblock %}
 
