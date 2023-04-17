@@ -1,13 +1,14 @@
 from app import app, db
 from flask import render_template, redirect, url_for, flash
-from fake_data import posts
+# from fake_data import posts
 from app.forms import SignUpForm, LoginForm, TextForm
 from app.models import User, Text
 from flask_login import login_user, logout_user, login_required, current_user
 
 @app.route('/')
 def index():
-    return render_template('index.html', posts=posts)
+    texts = Text.query.all()
+    return render_template('index.html', texts=texts)
 
 
 @app.route('/signup', methods=["GET", "POST"])
@@ -75,8 +76,8 @@ def add_text():
         title = form.title.data
         body = form.body.data
         image_url = form.image_url.data or None
-        # Create an instance of Post with form data AND auth user ID
-        new_post = Text(title=title, body=body, image_url=image_url, user_id=current_user.id)
-        flash(f"{new_post.title} has been created!", "success")
+        # Create an instance of Text with form data AND auth user ID
+        new_text = Text(title=title, body=body, image_url=image_url, user_id=current_user.id)
+        flash(f"{new_text.title} has been created!", "success")
         return redirect(url_for('index'))
-    return render_template('add_text.html', form=form)
+    return render_template('add_text.html', form=form) 
