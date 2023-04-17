@@ -42,6 +42,8 @@ class Text(db.Model):
     title = db.Column(db.String(50), nullable=False)
     body = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String(100), nullable=False, default=random_photo_url)
+    level_memorized = db.Column(db.Integer, nullable=False, default=1)
+    last_recite = db.Column(db.DateTime, nullable=True)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) # SQL - FOREIGN KEY(user_id) REFERENCES user(id)
 
