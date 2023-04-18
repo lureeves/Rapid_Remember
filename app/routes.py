@@ -125,10 +125,26 @@ def delete_text(text_id):
     return redirect(url_for('index'))
 
 
-@app.route('/practice', methods=["GET", "POST"])
+@app.route('/practice/<text_id>', methods=["GET", "POST"])
 @login_required
-def practice():
+def practice(text_id):
     form = TextForm()
+    practice = Text.query.get_or_404(text_id)
+    # Make sure that the text author is the current user
+    if practice.author != current_user:
+        flash("You do not have permission to edit this text", "danger")
+        return redirect(url_for('index'))
+    
+    # If form submitted, update Text
+    if form.validate_on_submit():
+        # update the text with the form data
+        print('Form validated')
+        practice.body = form.body.data
+        # Commit that to the database
+        db.session.commit()
+        flash(f"{practice.title} has been edited!", "success")
+        return redirect(url_for('index'))
+    
     if form.validate_on_submit():
         # Get the data from the form
         body = form.body.data
@@ -137,4 +153,35 @@ def practice():
         new_text = Text(body=body, image_url=image_url, user_id=current_user.id)
         flash(f"{new_text.title} has been created!", "success")
         return redirect(url_for('index'))
-    return render_template('practice.html', form=form) 
+    
+    # Pre-populate the form with Text To Edit's values
+    form.body.data = practice.body
+    return render_template('practice.html', form=form, practice=practice)
+
+app.route('/edit/<text_id>', methods=["GET", "POST"])
+@login_required
+def edit_text(text_id):
+    form = TextForm()
+    text_to_edit = Text.query.get_or_404(text_id)
+    # Make sure that the text author is the current user
+    if text_to_edit.author != current_user:
+        flash("You do not have permission to edit this text", "danger")
+        return redirect(url_for('index'))
+
+    # If form submitted, update Text
+    if form.validate_on_submit():
+        # update the text with the form data
+        print('Form validated')
+        text_to_edit.title = form.title.data
+        text_to_edit.body = form.body.data
+        text_to_edit.image_url = form.image_url.data
+        # Commit that to the database
+        db.session.commit()
+        flash(f"{text_to_edit.title} has been edited!", "success")
+        return redirect(url_for('index'))
+
+    # Pre-populate the form with Text To Edit's values
+    form.title.data = text_to_edit.title
+    form.body.data = text_to_edit.body
+    form.image_url.data = text_to_edit.image_url
+    return render_template('edit_text.html', form=form, text=text_to_edit)
