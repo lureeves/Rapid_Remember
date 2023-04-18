@@ -123,3 +123,18 @@ def delete_text(text_id):
     db.session.commit()
     flash(f"{text_to_delete.title} has been deleted", "info")
     return redirect(url_for('index'))
+
+
+@app.route('/practice', methods=["GET", "POST"])
+@login_required
+def practice():
+    form = TextForm()
+    if form.validate_on_submit():
+        # Get the data from the form
+        body = form.body.data
+        image_url = form.image_url.data or None
+        # Create an instance of Text with form data AND auth user ID
+        new_text = Text(body=body, image_url=image_url, user_id=current_user.id)
+        flash(f"{new_text.title} has been created!", "success")
+        return redirect(url_for('index'))
+    return render_template('practice.html', form=form) 

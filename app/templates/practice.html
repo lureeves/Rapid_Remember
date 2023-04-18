@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Add a Text{% endblock %}
+{% block title %}Practice{% endblock %}
 
 {% block header %}
-    <h1>Add a Text</h1>
+    <h1>Practice Makes Perfect</h1>
 {% endblock %}
 
 {% block content %}
@@ -14,14 +14,8 @@
                     <form action="" method="post">
                         {{ form.csrf_token }}
 
-                        {{ form.title.label }}
-                        {{ form.title(class="form-control", placeholder="Enter Text Title") }}
-
                         {{ form.body.label }}
                         {{ form.body(class="form-control", placeholder="Enter Text Body") }}
-
-                        {{ form.image_url.label }}
-                        {{ form.image_url(class="form-control", placeholder="Enter Image URL") }}
 
                         {{ form.submit(class="btn btn-primary w-100 mt-3") }}
 
