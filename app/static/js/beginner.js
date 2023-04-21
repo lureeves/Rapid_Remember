@@ -50,30 +50,4 @@ inputField.addEventListener('keydown', (event) => {
 });
 
 
-// Generates image from DALL-E API
-const prompt = "an elephant in the forest";
-const apiKey = process.env.OPEN_API_KEY;
-const endpointUrl = "https://api.openai.com/v1/images/generations";
 
-fetch(endpointUrl, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${apiKey}`,
-  },
-  body: JSON.stringify({
-    "model": "image-alpha-001",
-    "prompt": prompt,
-    "num_images": 1,
-    "size": "256x256",
-  }),
-})
-.then(response => response.json())
-.then(result => {
-  console.log(result);
-  const imageUrl = result.data[0].url;
-  const img = new Image();
-  img.src = imageUrl;
-  document.body.appendChild(img); // append the image to the body of the page
-})
-.catch(error => console.error(error));

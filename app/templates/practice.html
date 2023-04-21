@@ -13,7 +13,7 @@
         <div class="col-sm-6">
             <div class="card" id="image-card" style="visibility: hidden;">
                 <!-- Image is here -->
-                <img src="..." class="card-img-top" alt="...">
+                <img class="cardImage" >
             </div>
         </div>
         </div>
@@ -42,9 +42,14 @@
                     </form>
 
                     <!-- Generate Image Button -->
-                    <button onclick="generateImage()" class="btn btn-primary">Generate Image</button>
+                    <button onclick="generateImage('{{ practice.body }}')" class="btn btn-primary">Generate Image</button>
                     <script src="{{ url_for('static', filename='js/generate_image.js') }}"></script>
 
+                    <!-- Pass api_key into generate_image.js file -->
+                    <script>
+                        var tempKey = '{{ api_key }}';
+                    </script>
+                    
                 </div>
             </div>
         </div>

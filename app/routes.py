@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for, flash
 from app.forms import SignUpForm, LoginForm, TextForm
 from app.models import User, Text
 from flask_login import login_user, logout_user, login_required, current_user
+import os
 
 @app.route('/')
 def index():
@@ -130,11 +131,14 @@ def delete_text(text_id):
 def practice(text_id):
     form = TextForm()
     practice = Text.query.get_or_404(text_id)
+
     # Make sure that the text author is the current user
     if practice.author != current_user:
         flash("You do not have permission to practice this text", "danger")
         return redirect(url_for('index'))
     
+    api_key = os.getenv('OPENAI_API_KEY') # Passes in API key
+
     # Pre-populate the form with Text To Edit's values
     form.body.data = practice.body
-    return render_template('practice.html', form=form, practice=practice)
+    return render_template('practice.html', form=form, practice=practice, api_key=api_key)

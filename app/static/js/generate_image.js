@@ -1,16 +1,30 @@
-// Request a random image from Lorem Picsum API
-function generateImage() {
+function generateImage(memorizationText) {
+    console.log(memorizationText);
     const imageCard = document.getElementById('image-card');
     imageCard.style.visibility = 'visible';
-    
-    fetch('https://picsum.photos/512/512')
-        .then(response => {
-            // Get the image URL from the response headers
-            const imageUrl = response.url;
-            // Set the source of the card's image to the URL
-            const cardImg = imageCard.querySelector('.card-img-top');
-            cardImg.src = imageUrl;
-        })
-        .catch(error => console.error(error));
-}
 
+    const apiKey = tempKey;
+    const endpointUrl = "https://api.openai.com/v1/images/generations";
+
+    fetch(endpointUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+            "model": "image-alpha-001",
+            "prompt": memorizationText,
+            "num_images": 1,
+            "size": "256x256",
+        }),
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+        const imageUrl = result.data[0].url;
+        const cardImg = imageCard.querySelector('.cardImage');
+        cardImg.src = imageUrl;
+    })
+    .catch(error => console.error(error));
+}
