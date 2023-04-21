@@ -1,7 +1,10 @@
 const inputField = document.getElementById('input-field');
-const text = document.getElementById('text').textContent.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(' ');
+let text = document.getElementById('text');
+if (text) {
+  text = text.textContent.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(' ');
+}
 let score = 0; // Tracks how few helps user needed, higher is better
-textArray= text.filter(emptyWord => emptyWord !== '') // Removes empty elements
+const textArray = text.filter(emptyWord => emptyWord !== '') // Removes empty elements
 let currentWordIndex = 0;
 let currentWord = textArray[currentWordIndex];
 inputField.value = '';
@@ -14,11 +17,11 @@ inputField.addEventListener('keydown', (event) => {
         event.preventDefault(); // prevent default spacebar behavior
         const userInput = inputField.value.trim().toLowerCase();
 
-        // Increment/decrement if the word entered is the next in the sequnce
+        // Increment/decrement if the word entered is the next in the sequence
         if (userInput === currentWord) {
             score++; // Increment the score
             currentWordIndex++;
-            if (currentWordIndex < textArray.length+1) {
+            if (currentWordIndex < textArray.length) {
                 currentWord = textArray[currentWordIndex];
                 inputField.value = ''; // clear the input field
                 // Add the previous word to the display
@@ -28,7 +31,8 @@ inputField.addEventListener('keydown', (event) => {
                 correctWords.textContent += previousWord + ' ';
             } else {
                 // User finished the text
-                inputField.value = '';
+
+                window.location.href = '/'; // Redirect to home page
             }
         } else { // Wrong word entered
             score--; // Decrement score
@@ -36,13 +40,11 @@ inputField.addEventListener('keydown', (event) => {
             // flash the input field border red
             inputField.style.backgroundColor = 'red';
             setTimeout(() => {
-            inputField.style.backgroundColor = '';
+                inputField.style.backgroundColor = '';
             }, 500); // set timeout to reset border color after 100 milliseconds
         }
         const scoreDisplay = document.getElementById('score');
         scoreDisplay.textContent = score; // Display the score
-        inputField.value = '' // Clear input field 
-
-        
+        inputField.value = '' // Clear input field
     }
 });
