@@ -7,6 +7,20 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Image Generation Card-->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <div class="card" id="image-card" style="visibility: hidden;">
+                <!-- Image is here -->
+                <img src="..." class="card-img-top" alt="...">
+            </div>
+        </div>
+        </div>
+    </div>
+  
+
+    <!-- Practice Card -->
     <div class="row">
         <div class="col">
             <div class="card mt-3">
@@ -26,8 +40,14 @@
 
                         <input type="text" id="input-field" class="form-control" value="{{ practice.body }}">
                     </form>
+
+                    <!-- Generate Image Button -->
+                    <button onclick="generateImage()" class="btn btn-primary">Generate Image</button>
+                    <script src="{{ url_for('static', filename='js/generate_image.js') }}"></script>
+
                 </div>
             </div>
         </div>
     </div>
+    
 {% endblock %}
