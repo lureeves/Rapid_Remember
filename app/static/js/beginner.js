@@ -10,8 +10,6 @@ let currentWord = textArray[currentWordIndex];
 inputField.value = '';
 inputField.focus();
 
-let correctWordsArray = []; // an array to keep track of the correct words entered so far
-
 inputField.addEventListener('keydown', (event) => {
     if (event.key === ' ') {
         event.preventDefault(); // prevent default spacebar behavior
@@ -20,19 +18,43 @@ inputField.addEventListener('keydown', (event) => {
         // Increment/decrement if the word entered is the next in the sequence
         if (userInput === currentWord) {
             score++; // Increment the score
-            currentWordIndex++;
+            currentWordIndex++; // Incremenet word index
+
+            // Add the previous word to the display
+            const previousWord = textArray[currentWordIndex - 1];
+            const correctWords = document.getElementById('correctWords')
+            correctWords.textContent += previousWord + ' ';
+
             if (currentWordIndex < textArray.length) {
                 currentWord = textArray[currentWordIndex];
                 inputField.value = ''; // clear the input field
-                // Add the previous word to the display
-                const previousWord = textArray[currentWordIndex - 1];
-
-                const correctWords = document.getElementById('correctWords')
-                correctWords.textContent += previousWord + ' ';
             } else {
                 // User finished the text
+                inputField.value = '';
+                // Open modal
+                const modal = document.getElementById('myModal');
+                modal.style.display = 'block';
 
-                window.location.href = '/'; // Redirect to home page
+                // Display final score in modal body
+                const finalScore = document.getElementById('finalScore');
+                finalScore.textContent = 'Final Score: ' + score;
+
+                // Practice Again Button
+                const practiceAgainButton = modal.querySelector('.btn-primary');
+                score = 0; // Resets score
+                currentWordIndex = 0; // Reset word index
+                practiceAgainButton.addEventListener('click', () => {
+                    correctWords.textContent += '';
+                    inputField.value = ''; // Clear input field
+                    modal.style.display = 'none'; // Close modal
+                    inputField.focus(); // Put cursor in text field
+                });
+
+                // My Texts Button
+                const playAgainButton = modal.querySelector('.btn-secondary');
+                playAgainButton.addEventListener('click', () => {
+                    window.location.href = '/'; // Redirect to home page
+                });
             }
         } else { // Wrong word entered
             score--; // Decrement score
@@ -48,6 +70,3 @@ inputField.addEventListener('keydown', (event) => {
         inputField.value = '' // Clear input field
     }
 });
-
-
-

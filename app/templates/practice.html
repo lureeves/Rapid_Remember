@@ -25,6 +25,13 @@
         <div class="col">
             <div class="card mt-3">
                 <div class="card-body">
+                    <!-- Generate Image Button -->
+                    <div class="container-fluid text-center">
+                        <button onclick="generateImage('{{ practice.body }}')" class="btn btn-primary w-50">Generate Image</button>
+                        <script src="{{ url_for('static', filename='js/generate_image.js') }}"></script>
+                    </div>
+
+                    <!-- Form Body -->
                     <form action="" method="post">
                         {{ form.csrf_token }}
 
@@ -41,10 +48,6 @@
                         <input type="text" id="input-field" class="form-control" value="{{ practice.body }}">
                     </form>
 
-                    <!-- Generate Image Button -->
-                    <button onclick="generateImage('{{ practice.body }}')" class="btn btn-primary">Generate Image</button>
-                    <script src="{{ url_for('static', filename='js/generate_image.js') }}"></script>
-
                     <!-- Pass api_key into generate_image.js file -->
                     <script>
                         var tempKey = '{{ api_key }}';
@@ -53,6 +56,24 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal" tabindex="-1" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-title text-center pt-4">
+                        <h5>Congratulations!</h5>
+                    </div>
+                    <div class="modal-body text-center" id="finalScore">
+                        <p>Final Score: </p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary">Practice Again</button>
+                        <button type="button" class="btn btn-secondary">My Texts</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     
 {% endblock %}
