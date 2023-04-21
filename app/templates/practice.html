@@ -14,11 +14,17 @@
                     <form action="" method="post">
                         {{ form.csrf_token }}
 
-                        {{ form.body.label }}
-                        {{ form.body(class="form-control") }}
+                        <!-- Error checking in case body doesn't exit-->
+                        {% if practice.body %} 
+                            <!-- Pass text into JS file -->
+                            <div id="text">{{ practice.body }}</div>
+                        {% endif %}
+                            
+                        <p>Score: <span id="score">{{ score }}</span></p>
+                        
+                        <p>Correct words: <span id="correctWords"> {{ correctWords }}</span></p>
 
-                        {{ form.submit(class="btn btn-primary w-100 mt-3", value="Submit guess")}}
-
+                        <input type="text" id="input-field" class="form-control" value="{{ practice.body }}">
                     </form>
                 </div>
             </div>
