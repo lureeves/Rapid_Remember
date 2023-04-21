@@ -47,8 +47,10 @@ inputField.addEventListener('keydown', (event) => {
                     correctWords.textContent += '';
                     inputField.value = ''; // Clear input field
                     modal.style.display = 'none'; // Close modal
+                    location.reload(); // Reload the page
                     inputField.focus(); // Put cursor in text field
                 });
+
 
                 // My Texts Button
                 const playAgainButton = modal.querySelector('.btn-secondary');

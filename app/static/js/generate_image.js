@@ -1,7 +1,18 @@
+window.onload = function() {
+    const generatedImage = localStorage.getItem("generatedImage");
+    if (generatedImage) {
+        const imageCard = document.getElementById('image-card');
+        imageCard.style.visibility = 'visible';
+        const cardImg = imageCard.querySelector('.cardImage');
+        cardImg.src = generatedImage;
+    } else {
+        const memorizationText = "example prompt";
+        generateImage(memorizationText);
+    }
+}
+
 function generateImage(memorizationText) {
     console.log(memorizationText);
-    const imageCard = document.getElementById('image-card');
-    imageCard.style.visibility = 'visible';
 
     const apiKey = tempKey;
     const endpointUrl = "https://api.openai.com/v1/images/generations";
@@ -23,8 +34,9 @@ function generateImage(memorizationText) {
     .then(result => {
         console.log(result);
         const imageUrl = result.data[0].url;
-        const cardImg = imageCard.querySelector('.cardImage');
+        const cardImg = document.querySelector('.cardImage');
         cardImg.src = imageUrl;
+        localStorage.setItem("generatedImage", imageUrl);
     })
     .catch(error => console.error(error));
 }

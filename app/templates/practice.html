@@ -36,9 +36,9 @@
                         {{ form.csrf_token }}
 
                         <!-- Error checking in case body doesn't exit-->
+                        <!-- Pass text into JS file -->
                         {% if practice.body %} 
-                            <!-- Pass text into JS file -->
-                            <div id="text">{{ practice.body }}</div>
+                            <div id="text" style="color: white;">{{ practice.body }}</div>
                         {% endif %}
                             
                         <p>Score: <span id="score">{{ score }}</span></p>
