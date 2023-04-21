@@ -99,7 +99,7 @@ def edit_text(text_id):
         print('Form validated')
         text_to_edit.title = form.title.data
         text_to_edit.body = form.body.data
-        text_to_edit.image_url = form.image_url.data
+        # text_to_edit.image_url = form.image_url.data
         # Commit that to the database
         db.session.commit()
         flash(f"{text_to_edit.title} has been edited!", "success")
@@ -108,7 +108,7 @@ def edit_text(text_id):
     # Pre-populate the form with Text To Edit's values
     form.title.data = text_to_edit.title
     form.body.data = text_to_edit.body
-    form.image_url.data = text_to_edit.image_url
+    # form.image_url.data = text_to_edit.image_url
     return render_template('edit_text.html', form=form, text=text_to_edit)
 
 

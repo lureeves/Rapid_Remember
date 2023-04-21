@@ -4,12 +4,19 @@
 
 {% block header %}
     {% if not current_user.is_authenticated %}
-        <h1>Welcome to the Rapid Remember</h1>
-        <h3>The Last Memorization Tool You'll Need</h3>
         {% if current_user.is_authenticated %}
             <h5>Nice to see you again, {{ current_user.username }}!</h5>
         {% else %}
-            <h5>Please Sign Up or Log In to Access Texts</h5>
+            <!-- Jumbotron -->
+            <div class="jumbotron">
+                <h1 class="display-4">Reinvent Your Learning</h1>
+                <p class="lead">Rapid Remember uses DALL-E 2 API to generate images based upon text that you want to memorize.</p>
+                <hr class="my-4">
+                <p class="lead">Use images to help reinforce repetitive learning from typing out the texts over and over.</p>
+                <a class="btn btn-primary btn-lg" href="/signup" role="button" class="mx-3">Sign Up</a>
+                <a href="" class="p-3"> </a>
+                <a class="btn btn-primary btn-lg" href="/login" role="button">Log In</a>
+            </div>
         {% endif %}
     {% else %}
         <h1>Current 
@@ -27,9 +34,9 @@
                 {% if text.author == current_user %}
                     <div class="card mt-3">
                         <div class="row g-0">
-                            <!-- <div class="col-md-4">
-                                <img class="card-img-top" src="{{ text.image_url }}" alt="random">
-                            </div> -->
+                            <div class="col-md-4">
+                                <!-- <img class="card-img-top" src="{{ text.image_url }}" alt="random"> -->
+                            </div>
                             <div class="col-md-8">
                                 <div class="card-body">
                                         <h6 class="card-subtitle text-muted">{{ text.date_created }}</h6>
@@ -67,11 +74,64 @@
                     </div>
                 </div>
             {% endfor %}
-
-
         </div>
 
-       
+        {% if not current_user.is_authenticated %}
+            <!-- Page content -->
+            <div class="container my-3">
 
-    </div>
+                <!-- About section -->
+                <div class="container mb-1">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h2>About Rapid Remember</h2>
+                            <p>Rapid Remember is a web app that uses the DALL-E 2 API to generate images based on text that you want to memorize. By visualizing the information you're trying to remember, you can reinforce your learning and improve your retention.</p>
+                            <p>Whether you're a student studying for exams, a professional trying to remember important information, or just someone who wants to keep their brain sharp, Rapid Remember can help you achieve your goals.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefits section -->
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="card-title">Memorize Faster</h2>
+                                <p class="card-text">Studies have shown that visual cues help people learn and remember information faster and more effectively.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="card-title">Customizable Images</h2>
+                                <p class="card-text">Rapid Remember lets you create custom images based on your own preferences, making your learning experience more personal.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="card-title">Fun and Engaging</h2>
+                                <p class="card-text">Using images to memorize information is not only effective, but also fun and engaging, making the learning process less daunting.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="py-4 bg-light fixed-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="m-0 text-center">Copyright © Rapid Remember
+                                <br> Made by Lukas Reeves</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        {% endif %}
+    </div>  
 {% endblock %}
