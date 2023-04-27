@@ -103,9 +103,8 @@ Offical Website
 Tutorial
 
 - [Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
--
 
 ## Changelog
 
-- Version 1.0 : basic CRUD application, does not store image 
+- Version 1.0 : basic CRUD application, sign up/login, add text, edit text, practice and delete
 
