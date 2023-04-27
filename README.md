@@ -64,6 +64,15 @@ $ pip install -r requirements.txt
 ```
  
 ## Run Flask
+
+### Add .env
+
+File should follow this structure:
+
+```
+SECRET_KEY='secret-key-here'
+OPENAI_API_KEY ='api-key-here'
+```
 ### Run flask for develop
 
 If you are on windows, make a virtual environment named venv
