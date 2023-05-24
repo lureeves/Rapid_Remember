@@ -1,8 +1,6 @@
 # Rapid Remember
 
-Using Flask to build a Restful API Server with Swagger document.
-
-Integration with Flask-restplus, Flask-Cors, Flask-Testing, Flask-SQLalchemy,and Flask-OAuth extensions.
+Integration with Flask, and Flask-SQLalchemy extensions.
 
 ### Extension:
 
@@ -15,6 +13,34 @@ Install with pip:
 ```
 $ pip install -r requirements.txt
 ```
+
+## Run Flask
+
+### Add .env
+
+File should follow this structure:
+
+```
+SECRET_KEY='secret-key-here'
+OPENAI_API_KEY='api-key-here'
+```
+### Run flask for develop
+
+If you are on windows, make a virtual environment named venv
+
+Run venv with:
+
+```
+venv\Scripts\activate
+```
+
+To keep flask running during development use:
+
+```
+$ flask run --debug
+```
+
+In flask, Default port is `5000`
 
 ## Flask Application Structure 
 ```
@@ -59,39 +85,7 @@ $ pip install -r requirements.txt
 |
 +---venv
 \---__pycache__
-
-
 ```
- 
-## Run Flask
-
-### Add .env
-
-File should follow this structure:
-
-```
-SECRET_KEY='secret-key-here'
-OPENAI_API_KEY ='api-key-here'
-```
-### Run flask for develop
-
-If you are on windows, make a virtual environment named venv
-
-Run venv with:
-
-```
-venv\Scripts\activate
-```
-
-
-```
-$ flask run --debug
-```
-
-In flask, Default port is `5000`
-
-Swagger document page:  `http://127.0.0.1:5000/api`
-
 
 ## Reference
 
